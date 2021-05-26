@@ -15,6 +15,7 @@ def getQueries():
 
 
 class YouSearchDaemon():
+    # Flag to stop the daemon
     keepRunning = True
 
     def __init__(self):
@@ -25,6 +26,7 @@ class YouSearchDaemon():
     def start(self, sleepTime=10):
         YouSearchDaemon.keepRunning = True
         queryIndex = 0
+        # Keep running until the static keepRunning variable is made False
         while(YouSearchDaemon.keepRunning):
             try:
                 args = {}
@@ -43,6 +45,7 @@ class YouSearchDaemon():
     def stopDaemon():
         YouSearchDaemon.keepRunning = False
 
+    # Filters the contents of the response and stores only the required fields in the db
     def writeResultsToDb(self, search_response):
         videos = list()
         for item in search_response['items']:

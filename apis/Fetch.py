@@ -26,11 +26,15 @@ class Fetch:
         maxResults = 50
       ).execute()
     except HttpError as e:
-      if e.status_code==403:
+      # This means API key has expired. We fetch the next key available from db when his happens.
+      if e.status_code == 403:
         self.developer_key = self.api_key.get_next_key()
         self.youtube = build(self.youtube_api_service_name, self.youtube_api_version,
                              developerKey=self.developer_key)
         return self.youtube_fetch(args)
+      print(e)
+      return -1
+    except Exception as e:
       print(e)
       return -1
 
