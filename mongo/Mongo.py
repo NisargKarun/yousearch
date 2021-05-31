@@ -18,7 +18,7 @@ class MongoDB(object):
     def insert(self, post):
         post_ids = []
         try:
-            post_ids = self._collection.insert_many(post).inserted_ids
+            post_ids = self._collection.insert_many(post, ordered=False).inserted_ids
         except Exception as error:
             print(Exception(error))
         return post_ids
